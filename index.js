@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
-app.post('*', (req, res) => {
+var resolve = function(req, res){
+
     console.log(req.url);
     console.log(JSON.stringify(req.body));
     console.log(req.headers);
@@ -20,6 +21,9 @@ app.post('*', (req, res) => {
         }
 
     res.send(siebelResponse);
-});
+}
+
+app.post('*', resolve);
+app.get('*', resolve);
 
 app.listen(8888, () => console.log(`Started server at http://localhost:8888!`));
